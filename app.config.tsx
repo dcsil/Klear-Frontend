@@ -19,9 +19,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ]
   },
   extra: {
-    "eas": {
-      "projectId": "e0fb5977-b42b-48b4-a775-ce3fee9f5962"
-    },
     "SENTRY_DNS": SENTRY_DSN
   },
 });
