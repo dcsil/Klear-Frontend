@@ -13,7 +13,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shirleyofhuang.KlearFrontend"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +24,24 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "dcsil",
+            "project": "klear_frontend",
+            "authToken": ""
+          }
+        }
+      ]
+    },
+    "plugins": [
+      "sentry-expo"
+    ],
+    "extra": {
+      "SENTRY_DNS": ""
     }
   }
 }

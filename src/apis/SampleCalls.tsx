@@ -1,5 +1,5 @@
 import {domain} from './Headers';
-
+import * as Sentry from 'sentry-expo';
 
 export const helloWorld = async () => {
   try{
@@ -11,6 +11,6 @@ export const helloWorld = async () => {
     return responeJson.hello
     
   } catch (e) {
-    console.log(e) // integrate with Sentry?
+    Sentry.Native.captureException(e);
   }  
 }
