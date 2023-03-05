@@ -1,6 +1,5 @@
 ## Setup
-1. Create an expo account
-2. Login and Install dependencies via ```./script/bootstrap```
+1. Login and Install dependencies via ```./script/bootstrap```
 3. Download the Expo app
 4. Open the expo app, sign in, then this app should show up in the UI. Click to open it
 
