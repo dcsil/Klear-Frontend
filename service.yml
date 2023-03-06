@@ -1,16 +1,16 @@
 tools:
-  exceptions: https://cb11258ddbc640f8a4a166bbfc218d27@o358880.ingest.sentry.io/4504765118414848
-  # logging: https://service.us2.sumologic.com/ui/?appName=dcsil-team-app
-  ci: https://github.com/dcsil/klear-frontend/actions
+  exceptions: "https://cb11258ddbc640f8a4a166bbfc218d27@o358880.ingest.sentry.io/4504765118414848"
+  logging: https://service.us2.sumologic.com/ui/?appName=klear-frontend
+  ci: "https://github.com/dcsil/klear-frontend/actions"
 
 services:
-  # production: https://dcsil-team-app.herokuapp.com
+  # production: https://klear.herokuapp.com
 
 docs:
-  getting_started: https://github.com/dcsil/klear-frontend
+  getting_started: "https://github.com/dcsil/klear-frontend"
 
 commands:
-  bootstrap: bin/bootstrap
-  database: bin/rails db:create db:migrate
-  server: bin/rails server
-  test: bin/rails test
+  bootstrap: "./script/bootstrap"
+  database: "" # not relevant
+  server: "npm run start"
+  test: "npm run test"
