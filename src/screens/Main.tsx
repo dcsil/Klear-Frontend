@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/Button';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Main(navigation: any) {
+export default function Main() {
   const nav = useNavigation<any>()
 
   return (
