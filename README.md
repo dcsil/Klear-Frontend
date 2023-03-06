@@ -1,10 +1,7 @@
 ## Setup
-1. Install expo-cli ```npm install -g expo-cli```
-2. If not prompted, create an expo account and login via ```expo login```
-3. Download the Expo app
-4. Run ```npm install```
-5. Run ```expo start```
-6. Open the expo app, sign in, then this app should show up in the UI. Click to open it
+1. Login and Install dependencies via ```./script/bootstrap```
+2. Download the Expo app
+3. Open the expo app, sign in, then this app should show up in the UI. Click to open it
 
 ## Troubleshooting
 
