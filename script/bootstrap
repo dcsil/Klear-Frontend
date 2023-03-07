@@ -27,6 +27,4 @@ fi
 # Install npm dependencies
 echo "==> Installing npm dependencies…"
 npm install -g expo-cli
-expo register
-expo login
 npm install
