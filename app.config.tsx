@@ -4,8 +4,8 @@ import { SENTRY_DSN, SENTRY_AUTH_TOKEN } from '@env'
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  slug: "Klear-Frontend",
-  name: "Klear-Frontend",
+  slug: "klearFrontend",
+  name: "klearFrontend",
   hooks: {
     "postPublish": [
       {
