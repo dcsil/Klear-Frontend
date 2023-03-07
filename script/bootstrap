@@ -30,4 +30,3 @@ npm install -g expo-cli
 expo register
 expo login
 npm install
-expo start
