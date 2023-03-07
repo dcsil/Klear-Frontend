@@ -1,0 +1,16 @@
+tools:
+  exceptions: https://dcsil.sentry.io/projects/klear_frontend/?project=4504765118414848
+  logging: "https://us-east-2.console.aws.amazon.com/cloudwatch/home?region=us-east-2#logsV2:log-groups/log-group/klear_app"
+  ci: https://github.com/dcsil/klear-frontend/actions
+
+services:
+  production: https://expo.dev/@kerryzhu/Klear-Frontend?serviceType=classic&distribution=expo-go
+
+docs:
+  getting_started: "https://github.com/dcsil/klear-frontend"
+
+commands:
+  bootstrap: "./script/bootstrap"
+  database: "" # not relevant
+  server: "expo start"
+  test: "npm run test"
