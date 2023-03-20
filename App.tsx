@@ -4,6 +4,9 @@ import Main from './src/screens/Main';
 import Results from './src/screens/Results';
 import * as Sentry from 'sentry-expo';
 import { SENTRY_DSN } from '@env'
+import OneSignal from 'react-native-onesignal';
+import Constants from "expo-constants";
+OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
 
 
 Sentry.init({
