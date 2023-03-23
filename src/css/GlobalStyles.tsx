@@ -1,8 +1,11 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+  themeBgColor: {
+    backgroundColor: '#FCAB41',
+  },
   themeColor: {
-    backgroundColor: '#b8e6c4',
+    color: '#FCAB41',
   },
   errorColor: {
     color: 'red',
@@ -22,5 +25,8 @@ export default StyleSheet.create({
   flex1: {
     flex: 1
   },
+  row: {
+    flexDirection: 'row'
+  }
 
 })
