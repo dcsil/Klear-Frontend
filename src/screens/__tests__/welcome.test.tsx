@@ -1,17 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { render } from '@testing-library/react-native';
 import React from 'react';
-import MainScreen from '../Main'
+import WelcomeScreen from '../Welcome'
 
-describe(MainScreen.name, () => {
+describe(WelcomeScreen.name, () => {
   let wrapper;
 
-  it("should display a welcome text", ()=>{
+  it("should display a welcome text", () => {
     wrapper = <NavigationContainer>
-      <MainScreen/>
+      <WelcomeScreen />
     </NavigationContainer>
 
     const screen = render(wrapper)
-    expect(screen.getByText("Welcome to Klear")).toBeVisible()
+    expect(screen.getByText("Take better care of your children.")).toBeVisible()
   })
 })
