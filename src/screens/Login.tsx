@@ -9,10 +9,11 @@ import { login } from '../apis/Auth';
 
 export default function Login() {
   const nav = useNavigation<any>()
-  const demoUser = { email: "irvan@danmateo.com", pw: "pw" }
+  const demoUser = { email: "karen.smith@gmail.com", pw: "pw" }
 
   const handleDemoLogin = async () => {
-    if (await login(demoUser.email, demoUser.pw)) nav.navigate("Home")
+    const res = await login(demoUser.email, demoUser.pw)
+    if (res == "success") nav.navigate("Home")
   }
 
   return (
@@ -26,7 +27,7 @@ export default function Login() {
             <View style={styles.accountDetails}>
               <ProfilePic />
               <View style={{ marginLeft: 8 }}>
-                <Text style={styles.account1}>Irvan Danmateo</Text>
+                <Text style={styles.account1}>Karen Smith</Text>
                 <Text style={{ color: '#AFAFAF' }}>{demoUser.email}</Text>
               </View>
             </View>

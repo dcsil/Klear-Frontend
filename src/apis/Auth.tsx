@@ -39,13 +39,14 @@ export const login = async (email: string, password: string) => {
         password
       })
     });
-    if (response.status !== 200) return false
+    if (response.status == 401) return "Invalid Email/Password"
     const responeJson = await response.json()
-    if (!responeJson.accessToken) return false
+    if (!responeJson.accessToken) return "Unexpected Error"
     AsyncStorage.setItem('accessToken', responeJson.accessToken);
-    return true
+    return "success"
   } catch (e) {
     console.log(e);
     Sentry.Native.captureException(e);
+    return "Unexpected Error"
   }
 }

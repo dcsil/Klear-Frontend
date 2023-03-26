@@ -8,11 +8,13 @@ import { useState } from 'react';
 
 export default function NewLogin() {
   const nav = useNavigation<any>()
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState<string>();
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [error, setError] = useState<string>()
   const handleLogin = async (email: string, password: string) => {
-    if (await login(email, password)) nav.navigate("Home")
+    const res = await login(email, password)
+    if (res == "success") return nav.navigate("Home")
+    setError(res)
   }
 
   return (
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
     borderColor: '#B2B2B2',
     borderWidth: 2,
     marginTop: 20,
-    marginBottom: 30,
   },
   textInput: {
     margin: 10,
@@ -71,6 +72,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderRadius: 15,
     padding: 15,
+    marginTop: 20,
   },
   signupButtonStyle: {
     backgroundColor: "white",
