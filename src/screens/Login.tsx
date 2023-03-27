@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import s from '../css/GlobalStyles'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 import AddIcon from '../assets/AddIcon.svg'
 import ProfilePic from '../assets/ProfilePic.svg'
-import { login } from '../apis/Auth';
-
+import { login } from '../apis/Auth'
 
 export default function Login() {
   const nav = useNavigation<any>()
@@ -42,7 +41,7 @@ export default function Login() {
         </View>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -97,4 +96,4 @@ const styles = StyleSheet.create({
     margintop: 30,
     alignSelf: 'center',
   }
-});
+})

@@ -1,38 +1,38 @@
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import s from '../css/GlobalStyles';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../components/Button';
-import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import { signup } from '../apis/Auth';
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, TextInput } from 'react-native'
+import s from '../css/GlobalStyles'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Button from '../components/Button'
+import { useNavigation } from '@react-navigation/native'
+import { signup } from '../apis/Auth'
 
 export default function Signup() {
+  const [firstName, setFirstName] = useState<string>()
   const nav = useNavigation<any>()
-  const [firstName, setFirstName] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [confirmPassword, setConfirmPassword] = useState<string>();
-  const [errors, setErrors] = useState<string>();
+  const [lastName, setLastName] = useState<string>()
+  const [email, setEmail] = useState<string>()
+  const [password, setPassword] = useState<string>()
+  const [confirmPassword, setConfirmPassword] = useState<string>()
+  const [errors, setErrors] = useState<string>()
 
   const submitForm = async () => {
     if (!firstName) {
-      return setErrors("Please enter your first name")
+      setErrors('Please enter your first name'); return
     }
     if (!lastName) {
-      return setErrors("Please enter your last name")
+      setErrors('Please enter your last name'); return
     }
     if (!email) {
-      return setErrors("Please enter an email")
+      setErrors('Please enter an email'); return
     }
     if (password != confirmPassword) {
-      return setErrors("Passwords do not match")
+      setErrors('Passwords do not match'); return
     }
     if (!password) {
-      return setErrors("Invalid Password")
+      setErrors('Invalid Password'); return
     }
     const response = await signup(firstName, lastName, email, password)
-    if (response == "success") nav.navigate("Home")
+    if (response == 'success') nav.navigate('Home')
     setErrors(response)
   }
 
@@ -42,15 +42,15 @@ export default function Signup() {
         <Text style={styles.header}>Sign up</Text>
         <View style={styles.credentials}>
           {/* TODO: make this a component and reuse in Login screen */}
-          <TextInput placeholder='First Name' style={styles.textInput} onChangeText={t => { setFirstName(t); setErrors("") }} />
+          <TextInput placeholder='First Name' style={styles.textInput} onChangeText={t => { setFirstName(t); setErrors('') }} />
           <View style={styles.line} />
-          <TextInput placeholder='Last Name' style={styles.textInput} onChangeText={t => { setLastName(t); setErrors("") }} />
+          <TextInput placeholder='Last Name' style={styles.textInput} onChangeText={t => { setLastName(t); setErrors('') }} />
           <View style={styles.line} />
-          <TextInput placeholder='Email' style={styles.textInput} onChangeText={t => { setEmail(t); setErrors("") }} />
+          <TextInput placeholder='Email' style={styles.textInput} onChangeText={t => { setEmail(t); setErrors('') }} />
           <View style={styles.line} />
-          <TextInput placeholder='Password' style={styles.textInput} onChangeText={t => { setPassword(t); setErrors("") }} />
+          <TextInput placeholder='Password' style={styles.textInput} onChangeText={t => { setPassword(t); setErrors('') }} />
           <View style={styles.line} />
-          <TextInput placeholder='Confirm Password' style={styles.textInput} onChangeText={t => { setConfirmPassword(t); setErrors("") }} />
+          <TextInput placeholder='Confirm Password' style={styles.textInput} onChangeText={t => { setConfirmPassword(t); setErrors('') }} />
         </View>
         <Text style={styles.errorText}>{errors}</Text>
         <Button name="SIGN UP" onClick={submitForm}
@@ -59,18 +59,18 @@ export default function Signup() {
           style={styles.signupButtonStyle} textStyle={s.themeColor} />
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flexGrow: 1,
     backgroundColor: 'white',
-    paddingTop: 30,
+    paddingTop: 30
   },
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   header: {
     marginTop: 20,
@@ -82,31 +82,31 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderColor: '#B2B2B2',
     borderWidth: 2,
-    marginTop: 20,
+    marginTop: 20
   },
   textInput: {
-    margin: 10,
+    margin: 10
   },
   line: {
     height: 2,
-    backgroundColor: '#B2B2B2',
+    backgroundColor: '#B2B2B2'
   },
   errorText: {
     marginBottom: 30,
-    color: 'red',
+    color: 'red'
   },
   loginButtonStyle: {
     borderWidth: 0,
     borderRadius: 15,
-    padding: 15,
+    padding: 15
   },
   signupButtonStyle: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderWidth: 0,
     borderRadius: 15,
-    padding: 15,
+    padding: 15
   },
   loginButtonText: {
-    color: "white",
-  },
-});
+    color: 'white'
+  }
+})

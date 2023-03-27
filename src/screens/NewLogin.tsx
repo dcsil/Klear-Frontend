@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
-import s from '../css/GlobalStyles';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../components/Button';
-import { useNavigation } from '@react-navigation/native';
-import { login } from '../apis/Auth';
-import { useState } from 'react';
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, TextInput } from 'react-native'
+import s from '../css/GlobalStyles'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Button from '../components/Button'
+import { useNavigation } from '@react-navigation/native'
+import { login } from '../apis/Auth'
 
 export default function NewLogin() {
   const nav = useNavigation<any>()
@@ -33,7 +33,7 @@ export default function NewLogin() {
           style={styles.signupButtonStyle} textStyle={s.themeColor} />
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -83,4 +83,4 @@ const styles = StyleSheet.create({
   loginButtonText: {
     color: "white",
   },
-});
+})

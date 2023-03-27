@@ -1,11 +1,9 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import s from '../css/GlobalStyles';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native'
+import s from '../css/GlobalStyles'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Home() {
-  const nav = useNavigation<any>()
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -14,7 +12,7 @@ export default function Home() {
         <Text>Much more to come, much more to see</Text>
       </View>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -33,8 +31,4 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
     marginTop: 80,
   },
-  buttonStyle: {
-    backgroundColor: "orange",
-
-  }
-});
+})
