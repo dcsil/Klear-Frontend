@@ -3,6 +3,9 @@
 2. Download the Expo app
 3. Open the expo app, sign in, then this app should show up in the UI. Click to open it
 
+## env variables
+Message a team member to fill our .env file
+
 ## Troubleshooting
 
 - When trying to connect to this app, if the Expo app says "Something went wrong. Network response timed out." Try these:

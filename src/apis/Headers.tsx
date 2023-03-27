@@ -1,1 +1,6 @@
-export const domain = 'http://3.142.235.3:3000' // 'http://some.website.com' // repalce this with the link we use to host our backend
+import { DOMAIN } from "@env"
+
+export const domain = `http://${DOMAIN}` // Domain is either url of website or "IP address of local server":port number
+export const headers = {
+  "Content-Type": "application/json",
+}
