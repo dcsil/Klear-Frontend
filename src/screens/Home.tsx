@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import NavigatorTab from '../components/Navigator'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <Text style={[s.bold, { marginTop: 30 }]}>Welcome to Klear</Text>
         <Text>Much more to come, much more to see</Text>
       </View>
+      <NavigatorTab />
     </SafeAreaView>
   )
 }
@@ -22,7 +24,6 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   container: {
-    flex: 1,
     alignItems: 'center',
   },
   logoSize: {
