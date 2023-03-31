@@ -31,3 +31,12 @@ jobs:
 
       - name: Runs tests via Jest
         run: npm test
+      # name: Code Climate Coverage Report
+      # steps:
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.1
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/coverage/lcov.info:lcov
