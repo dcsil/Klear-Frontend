@@ -10,6 +10,8 @@ import Signup from './src/screens/Signup'
 import Home from './src/screens/Home'
 import Students from './src/screens/Students'
 import StudentInfo from './src/screens/StudentInfo'
+import PastIncidents from './src/screens/PastIncidents';
+import IncidentInfo from './src/screens/IncidentInfo'
 
 if (SENTRY_DSN) {
   Sentry.init({
@@ -31,6 +33,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Students" component={Students} />
         <Stack.Screen name="StudentInfo" component={StudentInfo} />
+        <Stack.Screen name="Past Incidents" component={PastIncidents} />
+        <Stack.Screen name="IncidentInfo" component={IncidentInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   )

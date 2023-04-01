@@ -22,7 +22,7 @@ export default function NavigatorTab() {
           <HomeTab height={28} width={28} />
           <Text>Home</Text>
         </Pressable>
-        <Pressable style={styles.buttonArea}>
+        <Pressable onPress={() => nav.navigate("Past Incidents")} style={styles.buttonArea}>
           {route.name == "Incidents" && (<View style={styles.selectedIndicator} />)}
           <IncidentsTab />
           <Text>Incidents</Text>
