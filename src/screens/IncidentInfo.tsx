@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { getIncident } from '../apis/Incidents'
-import { DOMAIN } from "@env"
+import { domain } from '../apis/Headers'
 import ExitIcon from '../assets/ExitIcon.svg'
 import ClockIcon from '../assets/ClockIcon.svg'
 import CheckIcon from '../assets/CheckIcon.svg'
@@ -31,7 +31,7 @@ const getPicture = (picture: string | undefined) => {
   if (picture) {
     return <Image
         style={styles.picture}
-        source={{ uri: `http:${DOMAIN}/images/${picture}` }}
+        source={{ uri: `${domain}/images/${picture}` }}
         />
   } else {
     return <Image source={require('../assets/klear_logo.png')} style={styles.picture} />
@@ -50,8 +50,11 @@ export default function IncidentInfo() {
       const incident = await getIncident(incidentId)
       setResponse(incident)
     }
-
-    fetchIncident()
+    try {
+      fetchIncident()
+    } catch (e) {
+      fetchIncident()
+    }
   }, [])
 
   console.log(response, "response")

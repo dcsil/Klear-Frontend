@@ -9,6 +9,7 @@ import { getAllPastIncidents } from '../apis/Incidents'
 import CheckIcon from '../assets/CheckIcon.svg'
 import CrossIcon from '../assets/CrossIcon.svg'
 import { translateTime } from '../helpers/convertDates'
+import NavigatorTab from '../components/Navigator'
 
 export default function PastIncidents() {
   const nav = useNavigation<any>()
@@ -18,7 +19,11 @@ export default function PastIncidents() {
       const data = await getAllPastIncidents()
       setIncidents(data)
     }
-    fetchData()
+    try {
+      fetchData()
+    } catch (e) {
+      console.log(e)
+    }
   }, [])
 
   const [filter, setFilter] = useState<string>("")
@@ -30,8 +35,8 @@ export default function PastIncidents() {
             <View style={[s.row, { justifyContent: 'space-between' }]}>
                 <Text style={s.title}>Incidents</Text>
                 <View>
-                    <View style={styles.legend}><CheckIcon/><Text>Acknowledged</Text></View>
-                    <View style={styles.legend}><CrossIcon/><Text>Dismiss</Text></View>
+                    <View style={styles.legend}><CheckIcon/><Text> Acknowledged</Text></View>
+                    <View style={styles.legend}><CrossIcon/><Text> Dismissed</Text></View>
                 </View>
             </View>
             <View style={[s.row, { justifyContent: 'space-between' }]}>
@@ -58,6 +63,7 @@ export default function PastIncidents() {
                 })}
             </ScrollView>
         </View>
+        <NavigatorTab />
     </SafeAreaView>
   )
 }
