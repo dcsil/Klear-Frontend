@@ -5,15 +5,12 @@ import { useNavigation } from '@react-navigation/native'
 import AddIcon from '../assets/AddIcon.svg'
 import ProfilePic from '../assets/ProfilePic.svg'
 import { login } from '../apis/Auth'
-import { DOMAIN } from '@env'
 
 export default function Login() {
   const nav = useNavigation<any>()
   const demoUser = { email: "karen.smith@gmail.com", pw: "pw" }
 
   const handleDemoLogin = async () => {
-    console.log('aaaa')
-    console.log(DOMAIN)
     const res = await login(demoUser.email, demoUser.pw)
     if (res == "success") nav.navigate("Home")
   }
