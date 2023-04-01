@@ -16,7 +16,7 @@ export default function StudentInfo() {
 
   const fetchStudentHistory = async () => {
     setRefreshing(true)
-    setIncidents(await getStudentHistory(route.params.studentId) ?? [])
+    setIncidents(await getStudentHistory(studentInfo.student_id) ?? [])
     setRefreshing(false)
   }
 
@@ -35,7 +35,7 @@ export default function StudentInfo() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.studentName}>{route.params.studentName}</Text>
+        <Text style={styles.studentName}>{`${studentInfo.first_name} ${studentInfo.last_name}`}</Text>
         <Image style={styles.studentImage} source={require("../assets/tempStudentImg.png")} />
         <View style={[s.row, styles.categories]}>
           <Pressable onPress={() => { setSelectedCategory('Info') }}>
@@ -60,9 +60,9 @@ export default function StudentInfo() {
             selectedCategory == 'Info' && (
               <View>
                 <Text style={styles.studentInfo}>{`Name: ${studentInfo.first_name} ${studentInfo.last_name}`}</Text>
-                <Text style={styles.studentInfo}>Age: { }</Text>
-                <Text style={styles.studentInfo}>Parents: </Text>
-                <Text style={styles.studentInfo}>{`Parent's Contact`}:</Text>
+                <Text style={styles.studentInfo}>Age: {studentInfo.age}</Text>
+                <Text style={styles.studentInfo}>Contact Name: {studentInfo.contact_name}</Text>
+                <Text style={styles.studentInfo}>Contact Number: {studentInfo.contact_number}</Text>
               </View>
             )
           }
@@ -133,6 +133,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 20,
     fontWeight: 'bold',
-    color: 'grey',
   }
 })
