@@ -1,8 +1,9 @@
 import { domain, headers } from './Headers'
 import * as Sentry from 'sentry-expo'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { type Incident } from '../store/IncidentTypes'
 
-export const getAllPastIncidents = async (): Promise<any> => {
+export const getAllPastIncidents = async (): Promise<Incident[] | undefined> => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken')
     const response = await fetch(domain + "/incidents/all", {
@@ -13,11 +14,10 @@ export const getAllPastIncidents = async (): Promise<any> => {
   } catch (e) {
     console.log(e)
     Sentry.Native.captureException(e)
-    return 'Error in fetching past incidents'
   }
 }
 
-export const getIncident = async(incidentId: number): Promise<any> => {
+export const getIncident = async(incidentId: number): Promise<Incident | undefined> => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken')
     const response = await fetch(domain + `/incidents/get/${incidentId}`, {
@@ -28,6 +28,5 @@ export const getIncident = async(incidentId: number): Promise<any> => {
   } catch (e) {
     console.log(e)
     Sentry.Native.captureException(e)
-    return 'Error in fetching the incident'
   }
 }
