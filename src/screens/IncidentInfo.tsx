@@ -12,20 +12,8 @@ import CheckIcon from '../assets/CheckIcon.svg'
 import CrossIcon from '../assets/CrossIcon.svg'
 import PersonIcon from '../assets/PersonIcon.svg'
 import { translateTime } from '../helpers/convertDates'
-
-interface Incident {
-  incidentId?: number
-  status?: number
-  event?: string
-  date?: string
-  screenshot?: string
-  students?: [Student]
-}
-
-interface Student {
-  first_name: string
-  last_name: string
-}
+import { type Incident } from '../store/IncidentTypes'
+import { type Student } from '../store/StudentTypes'
 
 const getPicture = (picture: string | undefined) => {
   if (picture) {
@@ -41,12 +29,10 @@ const getPicture = (picture: string | undefined) => {
 export default function IncidentInfo() {
   const route = useRoute<any>()
   const nav = useNavigation<any>()
-  const [response, setResponse] = useState<Incident>({})
+  const [response, setResponse] = useState<Incident>()
   useEffect(() => {
     const fetchIncident = async () => {
       const { incidentId } = route.params
-      //   const incident = { incidentId: 2, event: "Bite", date: "2023-03-16 11:38:17", status: 1 }
-
       const incident = await getIncident(incidentId)
       setResponse(incident)
     }
@@ -57,45 +43,40 @@ export default function IncidentInfo() {
     }
   }, [])
 
-  console.log(response, "response")
   return (
     <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
             <View style={[s.row]}>
-            <Text style={styles.title}>{response.event}</Text>
-            <ExitIcon style={{
-              position: 'absolute',
-              right: 5,
-              top: 5,
-            }}
-            onPress={ () => { nav.navigate("Past Incidents") }}
-            />
+                <Text style={styles.title}>{response?.event}</Text>
+                <ExitIcon style={{
+                  position: 'absolute',
+                  right: 5,
+                  top: 5,
+                }}
+                onPress={ () => { nav.navigate("Past Incidents") }}
+                />
             </View>
             <View>
-                {getPicture(response.screenshot)}
-                {/* <Image
-                style={styles.picture}
-                source={{ uri: `http:${DOMAIN}/images/${response.screenshot}` }}
-                /> */}
+                {getPicture(response?.screenshot)}
             </View>
             <View>
-                {response.date &&
+                {response?.date &&
                 <View style={styles.time}>
                     <PersonIcon /><Text> Related Student(s): {
-                        response.students?.map((student: Student) => {
+                        response?.students?.map((student: Student) => {
                           return `${student?.first_name} ${student?.last_name}`
                         })
                         } </Text>
                     </View>}
             </View>
             <View>
-                {response.date &&
+                {response?.date &&
                 <View style={styles.time}>
                     <ClockIcon /><Text> Detected at {translateTime(response.date)}</Text>
                     </View>}
             </View>
             <View>
-                {response.status
+                {response?.status
                   ? <View style={styles.time}>
                     <CheckIcon /><Text> Acknowledged </Text>
                     </View>
@@ -129,7 +110,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     textAlign: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
+    flex: 1,
   },
   picture: {
     width: 310,

@@ -10,14 +10,15 @@ import CheckIcon from '../assets/CheckIcon.svg'
 import CrossIcon from '../assets/CrossIcon.svg'
 import { translateTime } from '../helpers/convertDates'
 import NavigatorTab from '../components/Navigator'
+import { type Incident } from '../store/IncidentTypes'
 
 export default function PastIncidents() {
   const nav = useNavigation<any>()
-  const [incidents, setIncidents] = useState<unknown[]>([])
+  const [incidents, setIncidents] = useState<Incident[]>([])
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllPastIncidents()
-      setIncidents(data)
+      setIncidents(data ?? [])
     }
     try {
       fetchData()
@@ -27,7 +28,6 @@ export default function PastIncidents() {
   }, [])
 
   const [filter, setFilter] = useState<string>("")
-  console.log(incidents)
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -49,7 +49,7 @@ export default function PastIncidents() {
                 </View>
             </View>
             <ScrollView style={{ paddingRight: 10 }}>
-                {incidents.map((incident: any) => {
+                {incidents?.map((incident: Incident) => {
                   return <View key={incident.incident_id} style={s.row}>
                         {incident.status
                           ? <CheckIcon style={styles.icon} />

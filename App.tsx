@@ -15,7 +15,6 @@ import PastIncidents from './src/screens/PastIncidents';
 import IncidentInfo from './src/screens/IncidentInfo'
 import { store } from './src/store/StoreConfig'
 
-
 if (SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
@@ -27,18 +26,20 @@ export default function App() {
   const Stack = createNativeStackNavigator()
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="NewLogin" component={NewLogin} />
-        <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Students" component={Students} />
-        <Stack.Screen name="StudentInfo" component={StudentInfo} />
-        <Stack.Screen name="Past Incidents" component={PastIncidents} />
-        <Stack.Screen name="IncidentInfo" component={IncidentInfo} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store} >
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
+          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="NewLogin" component={NewLogin} />
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Students" component={Students} />
+          <Stack.Screen name="StudentInfo" component={StudentInfo} />
+          <Stack.Screen name="Past Incidents" component={PastIncidents} />
+          <Stack.Screen name="IncidentInfo" component={IncidentInfo} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
