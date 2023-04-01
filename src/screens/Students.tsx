@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
 import InfoRow from '../components/InfoRow'
 import SearchIcon from '../assets/SearchIcon.svg'
 import { useNavigation } from '@react-navigation/native'
+import { getAllStudents } from '../apis/Students'
+import { useDispatch, useSelector } from 'react-redux'
+import { type RootState } from '../store/StoreConfig'
+import { StudentStore } from '../store/StudentStore'
+import { type Student } from '../store/StudentTypes'
 
 export default function Students() {
   const nav = useNavigation<any>()
-  const [response, setResponse] = useState<unknown[]>([])
-  useEffect(() => {
-    const students = [{ id: 1, name: "Timmy Doe", image: "" }, { id: 2, name: "Rainy Min", image: "" }, { id: 3, name: "Dan Limos", image: "" }]
-    for (let i = 4; i < 18; i++) {
-      students.push({ id: i, name: `Student ${i}`, image: "" })
-    }
-    setResponse(students)
-  }, [])
   const [filter, setFilter] = useState<string>("")
+  const [refreshing, setRefreshing] = useState(false)
+  const studentList = useSelector((state: RootState) => state.global.students)
+  const dispatch = useDispatch()
+
+  const fetchStudentList = async () => {
+    setRefreshing(true)
+    const res = await getAllStudents()
+    dispatch(StudentStore.actions.updateStudentList(res))
+    setRefreshing(false)
+  }
+
+  useEffect(() => {
+    fetchStudentList()
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -26,20 +37,24 @@ export default function Students() {
         <View style={[s.row, { justifyContent: 'space-between' }]}>
           <View style={styles.filter}>
             <SearchIcon />
-            <TextInput style={styles.placeHolder} placeholderTextColor='black' placeholder={'Search '} onChangeText={setFilter} />
+            <TextInput style={styles.textInput} placeholderTextColor='black' placeholder={'Search '} onChangeText={setFilter} />
           </View>
           <View style={[styles.filter, s.centerContentY]}>
-            <TextInput style={styles.placeHolder} placeholderTextColor='black' placeholder={'Sort By: Alphabet   '} />
+            <TextInput style={styles.textInput} placeholderTextColor='black' placeholder={'Sort By: Alphabet   '} />
           </View>
         </View>
-        <ScrollView style={{ paddingRight: 10 }}>
-          {response.map((student: any) => {
-            if (!(student.name).includes(filter)) return null
-            return <View key={student.id} style={s.row}>
+        <ScrollView
+          style={{ paddingRight: 10 }}
+          refreshControl={<RefreshControl onRefresh={fetchStudentList} refreshing={refreshing} />}
+        >
+          {studentList.map((student: Student) => {
+            const fullName = student.first_name + " " + student.last_name
+            if (!(fullName).includes(filter)) return null
+            return <View key={student.student_id} style={s.row}>
               <View style={styles.circle} />
               <InfoRow
-                label={student.name}
-                onClick={() => { nav.navigate("StudentInfo", { studentName: student.name }) }}
+                label={fullName}
+                onClick={() => { nav.navigate("StudentInfo", { studentInfo: student }) }}
                 imageUri="../assets/tempStudentImg.png"
               />
             </View>
@@ -72,9 +87,9 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     marginRight: 10,
   },
-  placeHolder: {
+  textInput: {
     marginLeft: 10,
-    paddingRight: 10,
+    flex: 1,
     fontWeight: 'bold',
   },
   circle: {

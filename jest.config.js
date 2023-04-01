@@ -7,7 +7,8 @@ module.exports = {
   // Jest transformations -- this adds support for TypeScript
   // using babel-jest ** note I changed this from ts-jest to get tests working
   transform: {
-    '^.+\\.tsx?$': 'babel-jest'
+    '^.+\\.tsx?$': 'babel-jest',
+    '^.+\\.svg$': 'jest-transform-stub'
   },
   transformIgnorePatterns: [
     'node_modules/(?!(@react-native|react-native|react-native-vector-icons|axios)/)'
@@ -37,5 +38,10 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.tsx',
     '!**/node_modules/**'
-  ]
+  ],
+  globals: {
+    SENTRY_DSN: '',
+    SENTRY_AUTH_TOKEN: '',
+    DOMAIN: ''
+  }
 }

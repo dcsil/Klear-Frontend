@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image, Pressable, RefreshControl } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
 import InfoRow from '../components/InfoRow'
 import { useRoute } from '@react-navigation/native'
+import { getStudentHistory } from '../apis/Students'
+import { type Student, type StudentIncident } from '../store/StudentTypes'
 
 export default function StudentInfo() {
   const route = useRoute<any>()
-  const [response, setResponse] = useState<unknown[]>([])
+  const studentInfo = route.params.studentInfo as Student
+  const [incidents, setIncidents] = useState<StudentIncident[]>([])
+  const [refreshing, setRefreshing] = useState(false)
+
+  const fetchStudentHistory = async () => {
+    setRefreshing(true)
+    setIncidents(await getStudentHistory(route.params.studentId) ?? [])
+    setRefreshing(false)
+  }
+
   useEffect(() => {
-    const info = [{ incidentId: 1, action: "Play", time: "16:01pm", type: 'activity' },
-    /* eslint-disable @typescript-eslint/indent */
-    { incidentId: 2, action: "Bite", time: "12:01am", type: 'incident' },
-    { incidentId: 3, action: "Sprint", time: "2:05pm", type: 'incident' }
-    ]
-    for (let i = 4; i < 18; i++) {
-      info.push({ incidentId: i, action: `activity ${i}`, time: "16:01pm", type: 'activity' },)
-    }
-    setResponse(info)
+    fetchStudentHistory()
   }, [])
 
   const [selectedCategory, setSelectedCategory] = useState('Daily')
@@ -46,23 +49,29 @@ export default function StudentInfo() {
           </Pressable>
         </View>
         <View style={styles.divider} />
-        <ScrollView style={{ paddingRight: 10 }}>
+        <ScrollView
+          style={{ paddingRight: 10 }}
+          refreshControl={<RefreshControl
+            onRefresh={fetchStudentHistory}
+            refreshing={refreshing}
+          />}
+        >
           {
             selectedCategory == 'Info' && (
               <View>
-                <Text style={styles.studentInfo}>Name: Rainy Min</Text>
-                <Text style={styles.studentInfo}>Age: 5</Text>
+                <Text style={styles.studentInfo}>{`Name: ${studentInfo.first_name} ${studentInfo.last_name}`}</Text>
+                <Text style={styles.studentInfo}>Age: { }</Text>
                 <Text style={styles.studentInfo}>Parents: </Text>
                 <Text style={styles.studentInfo}>{`Parent's Contact`}:</Text>
               </View>
             )
           }
-          {selectedCategory != 'Info' && response.map((student: any) => {
-            if (selectedCategory == 'Incidents' && student.type == 'activity') return null
-            return <View key={student.incidentId} style={s.row}>
-              <View style={[styles.circle, circleColour(student.type)]} />
+          {selectedCategory != 'Info' && incidents.map((incident: StudentIncident, index: number) => {
+            if (selectedCategory == 'Incidents' && incident.type == 'activity') return null
+            return <View key={index} style={s.row}>
+              <View style={[styles.circle, circleColour(incident.type)]} />
               <InfoRow
-                label={student.action}
+                label={incident.event}
                 time="11:42pm"
                 onClick={() => { }}
               />

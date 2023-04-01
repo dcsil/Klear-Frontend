@@ -7,8 +7,7 @@ export const signup = async (firstName: string, lastName: string,
   try {
     const response = await fetch(domain + "/register", {
       method: 'POST',
-      mode: 'cors',
-      headers,
+      ...headers(),
       body: JSON.stringify({
         firstName,
         lastName,
@@ -32,8 +31,7 @@ export const login = async (email: string, password: string) => {
   try {
     const response = await fetch(domain + "/login", {
       method: 'POST',
-      mode: 'cors',
-      headers,
+      ...headers(),
       body: JSON.stringify({
         email,
         password
