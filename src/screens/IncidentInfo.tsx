@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
@@ -36,16 +36,13 @@ export default function IncidentInfo() {
       const incident = await getIncident(incidentId)
       setResponse(incident)
     }
-    try {
-      fetchIncident()
-    } catch (e) {
-      fetchIncident()
-    }
+
+    fetchIncident()
   }, [])
 
   return (
     <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={[s.row]}>
                 <Text style={styles.title}>{response?.event}</Text>
                 <ExitIcon style={{
@@ -88,7 +85,7 @@ export default function IncidentInfo() {
             <View>
                 <Text style={styles.report}>Report an issue</Text>
             </View>
-        </View>
+        </ScrollView>
         <NavigatorTab />
     </SafeAreaView>
   )

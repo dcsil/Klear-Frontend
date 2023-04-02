@@ -20,11 +20,7 @@ export default function PastIncidents() {
       const data = await getAllPastIncidents()
       setIncidents(data ?? [])
     }
-    try {
-      fetchData()
-    } catch (e) {
-      console.log(e)
-    }
+    fetchData()
   }, [])
 
   const [filter, setFilter] = useState<string>("")
