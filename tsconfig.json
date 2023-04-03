@@ -2,6 +2,12 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": [
+      // ... other types
+      "jest",
+      "node",
+      "@testing-library/jest-dom"
+    ]
   }
 }
