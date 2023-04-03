@@ -33,7 +33,8 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingBottom: 20
   },
 
 })

@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from "@react-navigation/native"
 import React from "react"
 import { View, Text, StyleSheet, Pressable } from "react-native"
-import StudentTab from "../assets/StudentTab.svg"
+import PersonIcon from "../assets/PersonIcon.svg"
 import HomeTab from "../assets/HomeTab.svg"
 import IncidentsTab from "../assets/IncidentsTab.svg"
 
@@ -14,7 +14,7 @@ export default function NavigatorTab() {
       <View style={styles.wrapper} >
         <Pressable onPress={() => nav.navigate("Students")} style={styles.buttonArea}>
           {route.name == "Students" && (<View style={styles.selectedIndicator} />)}
-          < StudentTab />
+          < PersonIcon height={28} width={28} />
           <Text>Students</Text>
         </Pressable>
         <Pressable onPress={() => nav.navigate("Home")} style={styles.buttonArea}>
@@ -22,8 +22,8 @@ export default function NavigatorTab() {
           <HomeTab height={28} width={28} />
           <Text>Home</Text>
         </Pressable>
-        <Pressable style={styles.buttonArea}>
-          {route.name == "Incidents" && (<View style={styles.selectedIndicator} />)}
+        <Pressable onPress={() => nav.navigate("Past Incidents")} style={styles.buttonArea}>
+          {route.name == "Past Incidents" && (<View style={styles.selectedIndicator} />)}
           <IncidentsTab />
           <Text>Incidents</Text>
         </Pressable>
