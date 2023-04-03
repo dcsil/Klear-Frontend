@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import InfoRow from '../components/InfoRow'
 import SearchIcon from '../assets/SearchIcon.svg'
 import { useNavigation } from '@react-navigation/native'
-import { getAllPastIncidents } from '../apis/Incidents'
+import { getAllIncidents } from '../apis/Incidents'
 import CheckIcon from '../assets/CheckIcon.svg'
 import CrossIcon from '../assets/CrossIcon.svg'
 import { translateTime } from '../helpers/convertDates'
@@ -17,7 +17,7 @@ export default function PastIncidents() {
   const [incidents, setIncidents] = useState<Incident[]>([])
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllPastIncidents()
+      const data = await getAllIncidents(0)
       setIncidents(data ?? [])
     }
     fetchData()

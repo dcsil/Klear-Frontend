@@ -3,10 +3,10 @@ import * as Sentry from 'sentry-expo'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { type Incident } from '../store/IncidentTypes'
 
-export const getAllPastIncidents = async (): Promise<Incident[] | undefined> => {
+export const getAllIncidents = async (active: number): Promise<Incident[] | undefined> => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken')
-    const response = await fetch(domain + "/incidents/all", {
+    const response = await fetch(domain + `/incidents/all/${active}`, {
       method: 'GET',
       ...headers(accessToken)
     })
