@@ -16,6 +16,9 @@ export default StyleSheet.create({
   centerText: {
     textAlign: 'center'
   },
+  centerSelf: {
+    alignSelf: 'center'
+  },
   centerContentX: {
     alignItems: 'center'
   },
@@ -27,6 +30,11 @@ export default StyleSheet.create({
   },
   row: {
     flexDirection: 'row'
-  }
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingBottom: 20
+  },
 
 })
