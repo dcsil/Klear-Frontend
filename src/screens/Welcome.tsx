@@ -12,9 +12,8 @@ export default function Welcome() {
   const nav = useNavigation<any>()
   if (isDevice && Platform.OS == "android") {
     OneSignal.setAppId(Constants?.manifest?.extra?.oneSignalAppId)
-    OneSignal.setNotificationOpenedHandler(event => {
-      const { screenToOpen } = event.notification.additionalData as any
-      if (screenToOpen) nav.navigate(screenToOpen)
+    OneSignal.setNotificationOpenedHandler(() => {
+      nav.navigate("Home")
     })
   }
 
