@@ -1,12 +1,22 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Platform } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../components/Button'
 import { useNavigation } from '@react-navigation/native'
+import Constants from 'expo-constants'
+import { isDevice } from 'expo-device'
+import OneSignal from 'react-native-onesignal'
 
 export default function Welcome() {
   const nav = useNavigation<any>()
+  if (isDevice && Platform.OS == "android") {
+    OneSignal.setAppId(Constants?.manifest?.extra?.oneSignalAppId)
+    OneSignal.setNotificationOpenedHandler(event => {
+      const { screenToOpen } = event.notification.additionalData as any
+      if (screenToOpen) nav.navigate(screenToOpen)
+    })
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>

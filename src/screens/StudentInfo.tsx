@@ -4,12 +4,14 @@ import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
 import InfoRow from '../components/InfoRow'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { getStudentHistory } from '../apis/Students'
 import { type Student, type StudentIncident } from '../store/StudentTypes'
+import { translateTime } from '../helpers/convertDates'
 
 export default function StudentInfo() {
   const route = useRoute<any>()
+  const nav = useNavigation<any>()
   const studentInfo = route.params.studentInfo as Student
   const [incidents, setIncidents] = useState<StudentIncident[]>([])
   const [refreshing, setRefreshing] = useState(false)
@@ -31,7 +33,7 @@ export default function StudentInfo() {
   const circleColour = (type: string) => {
     return type == 'activity' ? { backgroundColor: 'orange' } : { backgroundColor: '#FE5151' }
   }
-
+  console.log(incidents)
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -72,8 +74,11 @@ export default function StudentInfo() {
               <View style={[styles.circle, circleColour(incident.type)]} />
               <InfoRow
                 label={incident.event}
-                time="11:42pm"
-                onClick={() => { }}
+                time={translateTime(incident.date)}
+                onClick={() => {
+                  if (incident.incident_id) nav.navigate("IncidentInfo", { incidentId: incident.incident_id })
+                }
+                }
               />
             </View>
           })}

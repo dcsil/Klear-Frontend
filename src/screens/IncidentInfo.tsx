@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { getIncident } from '../apis/Incidents'
-import { domain } from '../apis/Headers'
 import ExitIcon from '../assets/ExitIcon.svg'
 import ClockIcon from '../assets/ClockIcon.svg'
 import CheckIcon from '../assets/CheckIcon.svg'
@@ -14,17 +13,7 @@ import PersonIcon from '../assets/PersonIcon.svg'
 import { translateTime } from '../helpers/convertDates'
 import { type Incident } from '../store/IncidentTypes'
 import { type Student } from '../store/StudentTypes'
-
-const getPicture = (picture: string | undefined) => {
-  if (picture) {
-    return <Image
-        style={styles.picture}
-        source={{ uri: `${domain}/images/${picture}` }}
-        />
-  } else {
-    return <Image source={require('../assets/klear_logo.png')} style={styles.picture} />
-  }
-}
+import IncidentPicture from '../components/IncidentPicture'
 
 export default function IncidentInfo() {
   const route = useRoute<any>()
@@ -42,51 +31,47 @@ export default function IncidentInfo() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-        <ScrollView style={styles.container}>
-            <View style={[s.row]}>
-                <Text style={styles.title}>{response?.event}</Text>
-                <ExitIcon style={{
-                  position: 'absolute',
-                  right: 5,
-                  top: 5,
-                }}
-                onPress={ () => { nav.navigate("Past Incidents") }}
-                />
-            </View>
-            <View>
-                {getPicture(response?.screenshot)}
-            </View>
-            <View>
-                {response?.date &&
-                <View style={styles.time}>
-                    <PersonIcon /><Text> Related Student(s): {
-                        response?.students?.map((student: Student) => {
-                          return `${student?.first_name} ${student?.last_name}`
-                        })
-                        } </Text>
-                    </View>}
-            </View>
-            <View>
-                {response?.date &&
-                <View style={styles.time}>
-                    <ClockIcon /><Text> Detected at {translateTime(response.date)}</Text>
-                    </View>}
-            </View>
-            <View>
-                {response?.status
-                  ? <View style={styles.time}>
-                    <CheckIcon /><Text> Acknowledged </Text>
-                    </View>
-                  : <View style={styles.time}>
-                    <CrossIcon /><Text> Dimissed </Text>
-                    </View>
-                    }
-            </View>
-            <View>
-                <Text style={styles.report}>Report an issue</Text>
-            </View>
-        </ScrollView>
-        <NavigatorTab />
+      <ScrollView style={styles.container}>
+        <View style={s.row}>
+          <Text style={styles.title}>{response?.event}</Text>
+          <Pressable onPress={() => { nav.goBack() }} style={styles.exitIcon}>
+            <ExitIcon height={20} fill='black'
+            />
+          </Pressable>
+        </View>
+        <View>
+          <IncidentPicture image={response?.screenshot} style={styles.picture} />
+        </View>
+        <View>
+          {response?.date &&
+            <View style={styles.time}>
+              <PersonIcon /><Text> Related Student(s): {
+                response?.students?.map((student: Student) => {
+                  return `${student?.first_name} ${student?.last_name}`
+                })
+              } </Text>
+            </View>}
+        </View>
+        <View>
+          {response?.date &&
+            <View style={styles.time}>
+              <ClockIcon /><Text> Detected at {translateTime(response.date)}</Text>
+            </View>}
+        </View>
+        {response?.status != null &&
+          <View>
+            {response?.status
+              ? <View style={styles.time}>
+                <CheckIcon /><Text> Acknowledged by {`${response?.first_name} ${response?.last_name}`}</Text>
+              </View>
+              : <View style={styles.time}>
+                <CrossIcon /><Text> Dimissed by {`${response?.first_name} ${response?.last_name}`}</Text>
+              </View>
+            }
+          </View>
+        }
+      </ScrollView>
+      <NavigatorTab />
     </SafeAreaView>
   )
 }
@@ -98,21 +83,24 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 1,
-    paddingHorizontal: 20,
+    marginTop: 10,
+    paddingHorizontal: 30,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    alignSelf: 'center',
-    marginTop: 20,
     textAlign: 'center',
-    alignContent: 'center',
+    alignSelf: 'center',
     flex: 1,
   },
+  exitIcon: {
+    position: 'absolute',
+    right: 0,
+    padding: 5,
+  },
   picture: {
-    width: 310,
-    height: 450,
+    width: '100%',
+    height: 410,
     alignSelf: 'center',
     borderRadius: 15,
     marginVertical: 20
@@ -120,11 +108,7 @@ const styles = StyleSheet.create({
   time: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginBottom: 10
-  },
-  report: {
-    alignSelf: 'center',
-    color: '#AFAFAF',
-    marginTop: 40
+    marginBottom: 10,
+    alignItems: 'center'
   }
 })

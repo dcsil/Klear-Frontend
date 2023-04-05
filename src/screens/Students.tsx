@@ -39,8 +39,8 @@ export default function Students() {
             <SearchIcon />
             <TextInput style={styles.textInput} placeholderTextColor='black' placeholder={'Search '} onChangeText={setFilter} />
           </View>
-          <View style={[styles.filter, s.centerContentY]}>
-            <TextInput style={styles.textInput} placeholderTextColor='black' placeholder={'Sort By: Alphabet   '} />
+          <View style={styles.filter}>
+            <Text style={styles.sortBy}>Sort By: Alphabet </Text>
           </View>
         </View>
         <ScrollView
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#cecfca',
@@ -88,8 +89,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   textInput: {
-    marginLeft: 10,
     flex: 1,
+    fontWeight: 'bold',
+    marginLeft: 6,
+  },
+  sortBy: {
     fontWeight: 'bold',
   },
   circle: {

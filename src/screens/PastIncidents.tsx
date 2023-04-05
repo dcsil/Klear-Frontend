@@ -27,39 +27,40 @@ export default function PastIncidents() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
-            <View style={[s.row, { justifyContent: 'space-between' }]}>
-                <Text style={s.title}>Incidents</Text>
-                <View>
-                    <View style={styles.legend}><CheckIcon/><Text> Acknowledged</Text></View>
-                    <View style={styles.legend}><CrossIcon/><Text> Dismissed</Text></View>
-                </View>
-            </View>
-            <View style={[s.row, { justifyContent: 'space-between' }]}>
-                <View style={styles.filter}>
-                    <SearchIcon />
-                    <TextInput style={styles.placeHolder} placeholderTextColor='black' placeholder={'Search '} onChangeText={setFilter} />
-                </View>
-                <View style={[styles.filter]}>
-                    <TextInput style={styles.placeHolder} placeholderTextColor='black' placeholder={'Sort By: Most Recent'} />
-                </View>
-            </View>
-            <ScrollView style={{ paddingRight: 10 }}>
-                {incidents?.map((incident: Incident) => {
-                  return <View key={incident.incident_id} style={s.row}>
-                        {incident.status
-                          ? <CheckIcon style={styles.icon} />
-                          : <CrossIcon style={styles.icon} />}
-                        <InfoRow
-                            label={incident.event}
-                            time={translateTime(incident.date)}
-                            onClick={() => { nav.navigate("IncidentInfo", { incidentId: incident.incident_id }) }}
-                        />
-                    </View>
-                })}
-            </ScrollView>
+      <View style={styles.container}>
+        <View style={[s.row, { justifyContent: 'space-between' }]}>
+          <Text style={s.title}>Incidents</Text>
+          <View>
+            <View style={styles.legend}><CheckIcon /><Text> Acknowledged</Text></View>
+            <View style={styles.legend}><CrossIcon /><Text> Dismissed</Text></View>
+          </View>
         </View>
-        <NavigatorTab />
+        <View style={[s.row, { justifyContent: 'space-between' }]}>
+          <View style={styles.filter}>
+            <SearchIcon />
+            <TextInput style={styles.placeHolder} placeholderTextColor='black' placeholder={'  Search '} onChangeText={setFilter} />
+          </View>
+          <View style={[styles.filter]}>
+            <Text style={styles.sortBy}>Sort By: Time</Text>
+          </View>
+        </View>
+        <ScrollView style={{ paddingRight: 10 }}>
+          {incidents?.map((incident: Incident) => {
+            if (!incident.event.includes(filter)) return null
+            return <View key={incident.incident_id} style={s.row}>
+              {incident.status
+                ? <CheckIcon style={styles.icon} />
+                : <CrossIcon style={styles.icon} />}
+              <InfoRow
+                label={incident.event}
+                time={translateTime(incident.date)}
+                onClick={() => { nav.navigate("IncidentInfo", { incidentId: incident.incident_id }) }}
+              />
+            </View>
+          })}
+        </ScrollView>
+      </View>
+      <NavigatorTab />
     </SafeAreaView>
   )
 }
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 1,
+    marginTop: 15,
     paddingHorizontal: 20,
   },
   filter: {
@@ -89,6 +90,11 @@ const styles = StyleSheet.create({
     marginLeft: 1,
     paddingRight: 10,
     fontWeight: 'bold',
+  },
+  sortBy: {
+    flex: 1,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   icon: {
     alignSelf: 'center',
