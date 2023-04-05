@@ -3,11 +3,6 @@ import { render } from '@testing-library/react-native'
 import React from 'react'
 import Login from '../Login'
 
-jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-)
-jest.mock('sentry-expo', () => { })
-
 describe(Login.name, () => {
   let wrapper
 

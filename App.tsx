@@ -14,12 +14,24 @@ import StudentInfo from './src/screens/StudentInfo'
 import PastIncidents from './src/screens/PastIncidents'
 import IncidentInfo from './src/screens/IncidentInfo'
 import { store } from './src/store/StoreConfig'
+import Constants from 'expo-constants'
+import * as Device from 'expo-device'
+import { Platform } from 'react-native'
+import OneSignal from 'react-native-onesignal'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 if (SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
     debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
   })
+}
+
+if (Device.isDevice && Platform.OS == "android") {
+  OneSignal.setAppId(Constants?.manifest?.extra?.oneSignalAppId)
+  AsyncStorage.setItem('oneSignal', 'supported')
+} else {
+  AsyncStorage.setItem('oneSignal', '')
 }
 
 export default function App() {

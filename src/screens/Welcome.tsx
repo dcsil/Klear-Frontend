@@ -1,21 +1,24 @@
-import React from 'react'
-import { StyleSheet, Text, View, Image, Platform } from 'react-native'
+import React, { useEffect } from 'react'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../components/Button'
 import { useNavigation } from '@react-navigation/native'
-import Constants from 'expo-constants'
-import { isDevice } from 'expo-device'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import OneSignal from 'react-native-onesignal'
 
 export default function Welcome() {
   const nav = useNavigation<any>()
-  if (isDevice && Platform.OS == "android") {
-    OneSignal.setAppId(Constants?.manifest?.extra?.oneSignalAppId)
-    OneSignal.setNotificationOpenedHandler(() => {
-      nav.navigate("Home")
+
+  useEffect(() => {
+    AsyncStorage.getItem('oneSignal').then(res => {
+      if (res == 'supported') {
+        OneSignal.setNotificationOpenedHandler(() => {
+          nav.navigate("Home")
+        })
+      }
     })
-  }
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeArea}>
