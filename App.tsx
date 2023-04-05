@@ -17,7 +17,9 @@ import PastIncidents from './src/screens/PastIncidents';
 import IncidentInfo from './src/screens/IncidentInfo'
 import { store } from './src/store/StoreConfig'
 
-OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
+if (!__DEV__ && Platform.OS == "android") {
+  OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
+}
 
 if (SENTRY_DSN) {
   Sentry.init({
