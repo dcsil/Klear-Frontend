@@ -16,9 +16,15 @@ import StudentInfo from './src/screens/StudentInfo'
 import PastIncidents from './src/screens/PastIncidents';
 import IncidentInfo from './src/screens/IncidentInfo'
 import { store } from './src/store/StoreConfig'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as Device from 'expo-device'
+import { Platform } from 'react-native'
 
-if (!__DEV__ && Platform.OS == "android") {
-  OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId);
+if (Device.isDevice && Platform.OS == "android") {
+  OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId)
+  AsyncStorage.setItem('oneSignal', 'supported')
+} else {
+  AsyncStorage.setItem('oneSignal', '')
 }
 
 if (SENTRY_DSN) {
