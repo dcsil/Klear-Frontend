@@ -1,22 +1,32 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { render } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 import Login from '../Login'
-
-jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-)
-jest.mock('sentry-expo', () => { })
+import { mockNav } from '../../testConfig/setupTests'
 
 describe(Login.name, () => {
-  let wrapper
+  let screen: any
 
-  it("should display a welcome text", () => {
-    wrapper = <NavigationContainer>
+  beforeEach(() => {
+    const wrapper = <NavigationContainer>
       <Login />
     </NavigationContainer>
+    screen = render(wrapper)
+  })
 
-    const screen = render(wrapper)
-    expect(screen.getByText("Sign back in")).toBeVisible()
+  it("should display at least the demo user", () => {
+    expect(screen.getByText("Karen Smith")).toBeVisible()
+  })
+
+  it("should be able to login with demo user", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ accessToken: "123" }))
+    fireEvent.press(screen.getByText("Karen Smith"))
+    await new Promise(setImmediate)
+    expect(mockNav).toBeCalledWith("Home")
+  })
+
+  it("should be able to navigate to new login screen", async () => {
+    fireEvent.press(screen.getByText("LOG IN WITH ANOTHER", { exact: false }))
+    expect(mockNav).toBeCalledWith("NewLogin")
   })
 })

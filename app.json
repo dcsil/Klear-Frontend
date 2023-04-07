@@ -17,6 +17,7 @@
       "bundleIdentifier": "com.shirleyofhuang.KlearFrontend"
     },
     "android": {
+      "package": "com.shirleyofhuang.KlearFrontend"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,10 +35,17 @@
       ]
     },
     "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ],
       "sentry-expo"
     ],
     "extra": {
-      "SENTRY_DNS": ""
+      "SENTRY_DNS": "",
+      "oneSignalAppId": "9ea06b9a-1433-4c15-ba13-3e8c70a63f52"
     }
   }
 }

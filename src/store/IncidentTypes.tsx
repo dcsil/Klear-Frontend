@@ -5,6 +5,8 @@ export interface Incident {
   status: number
   event: string
   date: string
+  first_name: string
+  last_name: string
   screenshot?: string
   students?: [Student]
 }

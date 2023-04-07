@@ -18,7 +18,8 @@ module.exports = {
   // when using React Testing Library and adds special
   // extended assertions to Jest
   setupFilesAfterEnv: [
-    '@testing-library/jest-native/extend-expect'
+    '@testing-library/jest-native/extend-expect',
+    './src/testConfig/setupTests.tsx'
   ],
 
   // Test spec file resolution pattern
