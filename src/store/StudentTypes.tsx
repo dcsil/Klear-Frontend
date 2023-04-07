@@ -9,6 +9,7 @@ export interface Student {
   contact_number: string
   first_name: string
   last_name: string
+  imageUrl?: string
 }
 
 export interface StudentIncident {

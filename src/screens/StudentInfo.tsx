@@ -33,12 +33,12 @@ export default function StudentInfo() {
   const circleColour = (type: string) => {
     return type == 'activity' ? { backgroundColor: 'orange' } : { backgroundColor: '#FE5151' }
   }
-  console.log(incidents)
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.studentName}>{`${studentInfo.first_name} ${studentInfo.last_name}`}</Text>
-        <Image style={styles.studentImage} source={require("../assets/tempStudentImg.png")} />
+        <Image style={styles.studentImage} source={{ uri: studentInfo.imageUrl }} />
         <View style={[s.row, styles.categories]}>
           <Pressable onPress={() => { setSelectedCategory('Info') }}>
             <Text style={[styles.category, { fontWeight: checkSelected('Info') }]}>Info  </Text>

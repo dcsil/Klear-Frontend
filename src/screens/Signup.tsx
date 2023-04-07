@@ -41,7 +41,6 @@ export default function Signup() {
       <View style={styles.container}>
         <Text style={styles.header}>Sign up</Text>
         <View style={styles.credentials}>
-          {/* TODO: make this a component and reuse in Login screen */}
           <TextInput placeholder='First Name' style={styles.textInput} onChangeText={t => { setFirstName(t); setErrors('') }} />
           <View style={styles.line} />
           <TextInput placeholder='Last Name' style={styles.textInput} onChangeText={t => { setLastName(t); setErrors('') }} />

@@ -19,13 +19,14 @@ export default function IncidentInfo() {
   const route = useRoute<any>()
   const nav = useNavigation<any>()
   const [response, setResponse] = useState<Incident>()
-  useEffect(() => {
-    const fetchIncident = async () => {
-      const { incidentId } = route.params
-      const incident = await getIncident(incidentId)
-      setResponse(incident)
-    }
 
+  const fetchIncident = async () => {
+    const { incidentId } = route.params
+    const incident = await getIncident(incidentId)
+    setResponse(incident)
+  }
+
+  useEffect(() => {
     fetchIncident()
   }, [])
 

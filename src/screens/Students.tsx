@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
 import InfoRow from '../components/InfoRow'
 import SearchIcon from '../assets/SearchIcon.svg'
+import studentImages from '../assets/studentImages.json'
 import { useNavigation } from '@react-navigation/native'
 import { getAllStudents } from '../apis/Students'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,6 +23,11 @@ export default function Students() {
   const fetchStudentList = async () => {
     setRefreshing(true)
     const res = await getAllStudents()
+    if (!res?.length) return
+    const images = studentImages.urls
+    for (let i = 0; i < res?.length; i++) {
+      res[i].imageUrl = images[i % images.length]
+    }
     dispatch(StudentStore.actions.updateStudentList(res))
     setRefreshing(false)
   }
@@ -55,7 +61,7 @@ export default function Students() {
               <InfoRow
                 label={fullName}
                 onClick={() => { nav.navigate("StudentInfo", { studentInfo: student }) }}
-                imageUri="../assets/tempStudentImg.png"
+                imageUri={student.imageUrl}
               />
             </View>
           })}

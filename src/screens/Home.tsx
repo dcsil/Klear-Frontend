@@ -100,7 +100,7 @@ export default function Home() {
             <Text style={styles.explainerText}>Acknowledge means this is an actual
               incident to be resolved. Dismiss means this is not an actual incident.
             </Text>
-            <Pressable style={styles.closeExplainer}
+            <Pressable style={styles.closeExplainer} testID='closedExplainer'
               onPress={() => {
                 AsyncStorage.setItem('closedExplainer', "true")
                 setShowExplainer(false)
