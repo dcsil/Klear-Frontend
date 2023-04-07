@@ -7,11 +7,14 @@ interface incidentPictureProps {
   style?: ImageStyle
 }
 
+const url = `https://ik.imagekit.io/gglohtmqe/incidents/`
+const thisIsWhatTheUrlShouldBe = "https://ik.imagekit.io/gglohtmqe/incidents/1.jpg"
+
 export default function IncidentPicture({ image, style }: incidentPictureProps) {
   if (image) {
     return <Image
       style={[style]}
-      source={{ uri: `${domain}/images/${image}` }}
+      source={{ uri: `${url}/${image}` }}
     />
   } else {
     return <Image source={require('../assets/klear_logo.png')} style={style} />
