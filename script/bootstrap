@@ -28,3 +28,11 @@ fi
 echo "==> Installing npm dependencies…"
 npm install -g expo-cli
 npm install
+
+# Create local.properties file if it doesn't exist
+echo "==> Updating local.properties…"
+if [ ! -f android/local.properties ]
+then
+  user=$(id -un)
+  echo "sdk.dir=/Users/${user}/Library/Android/sdk" >> android/local.properties
+fi
