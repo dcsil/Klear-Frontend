@@ -35,11 +35,6 @@ if [ ! -f android/local.properties ]
 then
   user=$(id -un)
   cd ..
-  echo "Listing the files"
-  ls
-  echo "List current path"
-  pwd
-  touch ./android/local.properties
-  
+  touch ./android/local.properties 
   echo "sdk.dir=/Users/${user}/Library/Android/sdk" > ./android/local.properties
 fi
