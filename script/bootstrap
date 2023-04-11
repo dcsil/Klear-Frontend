@@ -34,6 +34,7 @@ echo "==> Updating local.properties…"
 if [ ! -f android/local.properties ]
 then
   user=$(id -un)
+  cd ..
   echo "Listing the files"
   ls
   echo "List current path"
