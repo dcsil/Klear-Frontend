@@ -34,5 +34,8 @@ echo "==> Updating local.properties…"
 if [ ! -f android/local.properties ]
 then
   user=$(id -un)
+  touch ./android/local.properties
+  echo "Listing the files"
+  ls
   echo "sdk.dir=/Users/${user}/Library/Android/sdk" > ./android/local.properties
 fi
