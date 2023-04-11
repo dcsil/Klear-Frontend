@@ -6,26 +6,19 @@ import Welcome from './src/screens/Welcome'
 import Login from './src/screens/Login'
 import * as Sentry from 'sentry-expo'
 import { SENTRY_DSN } from '@env'
-import OneSignal from 'react-native-onesignal';
-import Constants from "expo-constants";
 import NewLogin from './src/screens/NewLogin'
 import Signup from './src/screens/Signup'
 import Home from './src/screens/Home'
 import Students from './src/screens/Students'
 import StudentInfo from './src/screens/StudentInfo'
-import PastIncidents from './src/screens/PastIncidents';
+import PastIncidents from './src/screens/PastIncidents'
 import IncidentInfo from './src/screens/IncidentInfo'
 import { store } from './src/store/StoreConfig'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constants from 'expo-constants'
 import * as Device from 'expo-device'
 import { Platform } from 'react-native'
-
-if (Device.isDevice && Platform.OS == "android") {
-  OneSignal.setAppId(Constants.manifest.extra.oneSignalAppId)
-  AsyncStorage.setItem('oneSignal', 'supported')
-} else {
-  AsyncStorage.setItem('oneSignal', '')
-}
+import OneSignal from 'react-native-onesignal'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 if (SENTRY_DSN) {
   Sentry.init({
@@ -34,13 +27,20 @@ if (SENTRY_DSN) {
   })
 }
 
+if (Device.isDevice && Platform.OS == "android") {
+  OneSignal.setAppId(Constants?.manifest?.extra?.oneSignalAppId)
+  AsyncStorage.setItem('oneSignal', 'supported')
+} else {
+  AsyncStorage.setItem('oneSignal', '')
+}
+
 export default function App() {
   const Stack = createNativeStackNavigator()
 
   return (
     <Provider store={store} >
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Home'>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='Welcome'>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="NewLogin" component={NewLogin} />

@@ -14,7 +14,7 @@ export default function InfoRow({ label, imageUri, time, style, onClick }: butto
   return (
     <TouchableOpacity style={[styles.defaultRowStyle, style]} onPress={onClick}>
       <View style={styles.infoContainer}>
-        {imageUri && <Image style={styles.image} source={require("../assets/tempStudentImg.png")} />}
+        {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
         <Text style={styles.label}>{label}</Text>
         {time && <View style={styles.time}><ClockIcon /><Text>  {time}</Text></View>}
       </View>
@@ -31,6 +31,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 2,
+    width: 40,
+    height: 40,
   },
   infoContainer: {
     flexDirection: "row",
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     marginLeft: 5,
+    flexShrink: 1,
   },
   time: {
     flexDirection: 'row',

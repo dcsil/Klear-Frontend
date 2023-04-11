@@ -17,7 +17,7 @@ export const getAllIncidents = async (active: number): Promise<Incident[] | unde
   }
 }
 
-export const getIncident = async(incidentId: number): Promise<Incident | undefined> => {
+export const getIncident = async (incidentId: number): Promise<Incident | undefined> => {
   try {
     const accessToken = await AsyncStorage.getItem('accessToken')
     const response = await fetch(domain + `/incidents/get/${incidentId}`, {
@@ -27,6 +27,23 @@ export const getIncident = async(incidentId: number): Promise<Incident | undefin
     return await response.json()
   } catch (e) {
     console.log(e)
+    Sentry.Native.captureException(e)
+  }
+}
+
+export const resolveIncident = async (incidentId: number, status: number) => {
+  try {
+    const accessToken = await AsyncStorage.getItem('accessToken')
+    const response = await fetch(domain + `/incidents/resolve`, {
+      method: 'POST',
+      ...headers(accessToken),
+      body: JSON.stringify({
+        incidentId,
+        status
+      })
+    })
+    return response.status == 200
+  } catch (e) {
     Sentry.Native.captureException(e)
   }
 }

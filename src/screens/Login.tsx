@@ -2,9 +2,11 @@ import React from 'react'
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-import AddIcon from '../assets/AddIcon.svg'
 import ProfilePic from '../assets/ProfilePic.svg'
+import RightArrow from '../assets/RightArrow.svg'
 import { login } from '../apis/Auth'
+import Button from '../components/Button'
+import s from '../css/GlobalStyles'
 
 export default function Login() {
   const nav = useNavigation<any>()
@@ -22,23 +24,21 @@ export default function Login() {
         <Text style={styles.header}>Sign back in</Text>
         <Text style={styles.header2}>Choose from accounts saved in this device</Text>
         <View style={styles.accounts}>
-          <Pressable onPress={handleDemoLogin}>
-            <View style={styles.accountDetails}>
-              <ProfilePic />
-              <View style={{ marginLeft: 8 }}>
-                <Text style={styles.account1}>Karen Smith</Text>
-                <Text style={{ color: '#AFAFAF' }}>{demoUser.email}</Text>
-              </View>
+          <Pressable onPress={handleDemoLogin} style={styles.accountDetails}>
+            <ProfilePic />
+            <View style={styles.namePassword}>
+              <Text style={styles.account1}>Karen Smith</Text>
+              <Text style={{ color: '#AFAFAF' }}>{demoUser.email}</Text>
             </View>
-          </Pressable>
-          <View style={styles.line} />
-          <Pressable onPress={() => nav.navigate('NewLogin')}>
-            <View style={styles.accountDetails}>
-              <AddIcon width={35} />
-              <Text style={styles.otherAccount}>Use another account</Text>
-            </View>
+            <RightArrow />
           </Pressable>
         </View>
+        <Button
+          name="LOG IN WITH ANOTHER ACCOUNT"
+          style={styles.otherAccount}
+          textStyle={[s.bold, s.themeColor, { opacity: 0.8 }]}
+          onClick={() => { nav.navigate('NewLogin') }}
+        />
       </View>
     </SafeAreaView>
   )
@@ -75,25 +75,27 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: '#CDCDCD'
-  },
-  line: {
-    height: 2,
-    backgroundColor: '#CDCDCD',
-    marginVertical: 10,
+    borderColor: '#CDCDCD',
   },
   accountDetails: {
-    marginHorizontal: 15,
+    marginLeft: 15,
+    marginRight: 7,
     flexDirection: 'row',
+    alignItems: 'center'
+  },
+  namePassword: {
+    marginLeft: 8,
+    marginRight: 12,
   },
   account1: {
     fontWeight: 'bold',
   },
   otherAccount: {
-    color: '#AFAFAF',
-    fontWeight: 'bold',
-    marginLeft: 10,
-    margintop: 30,
-    alignSelf: 'center',
-  }
+    position: 'absolute',
+    bottom: 40,
+    borderColor: '#CDCDCD',
+    borderWidth: 2,
+    paddingVertical: 10,
+    borderRadius: 13,
+  },
 })

@@ -1,12 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../components/Button'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import OneSignal from 'react-native-onesignal'
 
 export default function Welcome() {
   const nav = useNavigation<any>()
+
+  useEffect(() => {
+    AsyncStorage.getItem('oneSignal').then(res => {
+      if (res == 'supported') {
+        OneSignal.setNotificationOpenedHandler(() => {
+          nav.navigate("Home")
+        })
+      }
+    })
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeArea}>

@@ -4,7 +4,7 @@ import { Text, StyleSheet, TouchableOpacity, type ViewStyle, type TextStyle } fr
 interface buttonProps {
   name: string
   style?: ViewStyle[] | ViewStyle
-  textStyle?: TextStyle
+  textStyle?: TextStyle[] | TextStyle
   onClick: () => void
 }
 
