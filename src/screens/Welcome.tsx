@@ -23,7 +23,7 @@ export default function Welcome() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Image source={require('../assets/klear_logo.png')} style={styles.logo} />
+        <Image source={require('../assets/klear_logo.png')} accessibilityLabel='Klear Logo' style={styles.logo} />
         <Text style={styles.slogan}>Take better care of your children.</Text>
         <View style={styles.buttons}>
           <Button name="GET STARTED" onClick={() => { nav.navigate('Signup') }}

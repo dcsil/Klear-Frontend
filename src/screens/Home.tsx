@@ -12,7 +12,7 @@ import CheckIcon from '../assets/CheckIcon.svg'
 import CrossIcon from '../assets/CrossIcon.svg'
 import ClockIcon from '../assets/ClockIcon.svg'
 import ExitIcon from '../assets/ExitIcon.svg'
-import IncidentPicture from '../components/IncidentPicture'
+import RenderPicture from '../components/RenderPicture'
 
 export default function Home() {
   const nav = useNavigation<any>()
@@ -57,7 +57,8 @@ export default function Home() {
           </Pressable>
         </View>
         <Text style={styles.title2}>Active Incidents</Text>
-        <ScrollView style={styles.incidentScroll}
+        <ScrollView
+          contentContainerStyle={styles.incidentScroll}
           refreshControl={<RefreshControl
             onRefresh={fetchLatestIncidents}
             refreshing={refreshing}
@@ -76,7 +77,7 @@ export default function Home() {
                         <Text style={styles.incidentDate}>{translateTime(incident.date)}</Text>
                       </View>
                     </View>
-                    <IncidentPicture image={incident.screenshot} style={styles.image} />
+                    <RenderPicture image={incident.screenshot} type={'incidents'} style={styles.image} />
                   </View>
                 </Pressable>
                 <View style={styles.decisionWrapper}>
@@ -138,7 +139,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   incidentScroll: {
-    minHeight: 500
+    minHeight: 500,
+    paddingBottom: 60
   },
   image: {
     width: 130,

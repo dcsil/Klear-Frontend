@@ -12,7 +12,6 @@ export const getAllStudents = async (): Promise<Student[] | undefined> => {
     })
     return await response.json()
   } catch (e) {
-    console.log(e)
     Sentry.Native.captureException(e)
   }
 }

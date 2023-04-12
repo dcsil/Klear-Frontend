@@ -9,7 +9,7 @@ export interface Student {
   contact_number: string
   first_name: string
   last_name: string
-  imageUrl?: string
+  profile_pic?: string
 }
 
 export interface StudentIncident {
