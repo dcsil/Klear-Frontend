@@ -13,7 +13,7 @@ import PersonIcon from '../assets/PersonIcon.svg'
 import { translateTime } from '../helpers/convertDates'
 import { type Incident } from '../store/IncidentTypes'
 import { type Student } from '../store/StudentTypes'
-import RenderPicture from '../components/RenderPicture'
+import IncidentPicture from '../components/IncidentPicture'
 
 export default function IncidentInfo() {
   const route = useRoute<any>()
@@ -41,7 +41,7 @@ export default function IncidentInfo() {
           </Pressable>
         </View>
         <View>
-          <RenderPicture image={response?.screenshot} type={'incidents'} style={styles.picture} />
+          <IncidentPicture image={response?.screenshot} type={'incidents'} style={styles.picture} />
         </View>
         <View>
           {response?.date &&

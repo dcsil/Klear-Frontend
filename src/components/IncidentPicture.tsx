@@ -1,13 +1,13 @@
 import React from 'react'
 import { type ImageStyle, Image } from "react-native"
 
-interface renderPictureProps {
+interface incidentPictureProps {
   image?: string
   type?: 'incidents' | 'students'
   style?: ImageStyle
 }
 
-export default function RenderPicture({ image, style, type }: renderPictureProps) {
+export default function IncidentPicture({ image, style, type }: incidentPictureProps) {
   if (image && type) {
     const url = `https://ik.imagekit.io/gglohtmqe/${type}/${image}`
     return <Image

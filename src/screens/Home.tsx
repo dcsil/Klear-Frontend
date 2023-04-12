@@ -12,7 +12,7 @@ import CheckIcon from '../assets/CheckIcon.svg'
 import CrossIcon from '../assets/CrossIcon.svg'
 import ClockIcon from '../assets/ClockIcon.svg'
 import ExitIcon from '../assets/ExitIcon.svg'
-import RenderPicture from '../components/RenderPicture'
+import IncidentPicture from '../components/IncidentPicture'
 
 export default function Home() {
   const nav = useNavigation<any>()
@@ -77,7 +77,7 @@ export default function Home() {
                         <Text style={styles.incidentDate}>{translateTime(incident.date)}</Text>
                       </View>
                     </View>
-                    <RenderPicture image={incident.screenshot} type={'incidents'} style={styles.image} />
+                    <IncidentPicture image={incident.screenshot} type={'incidents'} style={styles.image} />
                   </View>
                 </Pressable>
                 <View style={styles.decisionWrapper}>

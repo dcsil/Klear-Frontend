@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { getStudentHistory } from '../apis/Students'
 import { type Student, type StudentIncident } from '../store/StudentTypes'
 import { translateTime } from '../helpers/convertDates'
-import RenderPicture from '../components/RenderPicture'
+import IncidentPicture from '../components/IncidentPicture'
 
 export default function StudentInfo() {
   const route = useRoute<any>()
@@ -39,7 +39,7 @@ export default function StudentInfo() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.studentName}>{`${studentInfo.first_name} ${studentInfo.last_name}`}</Text>
-        <RenderPicture image={studentInfo.profile_pic} style={styles.studentImage} type={'students'} />
+        <IncidentPicture image={studentInfo.profile_pic} style={styles.studentImage} type={'students'} />
         <View style={[s.row, styles.categories]}>
           <Pressable onPress={() => { setSelectedCategory('Info') }}>
             <Text style={[styles.category, { fontWeight: checkSelected('Info') }]}>Info  </Text>

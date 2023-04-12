@@ -1,7 +1,7 @@
 import React from "react"
 import { Text, StyleSheet, TouchableOpacity, type ViewStyle, View } from "react-native"
 import ClockIcon from '../assets/ClockIcon.svg'
-import RenderPicture from "./RenderPicture"
+import IncidentPicture from "./IncidentPicture"
 
 interface buttonProps {
   label: string
@@ -15,7 +15,7 @@ export default function InfoRow({ label, imageUri, time, style, onClick }: butto
   return (
     <TouchableOpacity style={[styles.defaultRowStyle, style]} onPress={onClick}>
       <View style={styles.infoContainer}>
-        {imageUri && <RenderPicture image={imageUri} type={'students'} style={styles.image} />}
+        {imageUri && <IncidentPicture image={imageUri} type={'students'} style={styles.image} />}
         <Text style={styles.label}>{label}</Text>
         {time && <View style={styles.time}><ClockIcon /><Text>  {time}</Text></View>}
       </View>
