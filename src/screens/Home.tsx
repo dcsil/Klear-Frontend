@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flexGrow: 1,
     backgroundColor: 'white',
-    paddingTop: 20,
   },
   logout: {
     backgroundColor: '#FCAB41',
@@ -136,11 +135,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   container: {
+    flex: 1,
     paddingHorizontal: 20,
   },
   incidentScroll: {
     minHeight: 500,
-    paddingBottom: 60
+    paddingBottom: 80,
   },
   image: {
     width: 130,
