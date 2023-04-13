@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Pressable, ScrollView, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, Pressable, ScrollView, RefreshControl, AppState } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
@@ -37,6 +37,10 @@ export default function Home() {
     setRefreshing(false)
   }
 
+  useEffect(() => {
+    AppState.addEventListener('change', fetchLatestIncidents)
+  }, [])
+
   useFocusEffect(useCallback(() => {
     fetchLatestIncidents()
   }, []))
@@ -57,7 +61,8 @@ export default function Home() {
           </Pressable>
         </View>
         <Text style={styles.title2}>Active Incidents</Text>
-        <ScrollView style={styles.incidentScroll}
+        <ScrollView
+          contentContainerStyle={styles.incidentScroll}
           refreshControl={<RefreshControl
             onRefresh={fetchLatestIncidents}
             refreshing={refreshing}
@@ -76,7 +81,7 @@ export default function Home() {
                         <Text style={styles.incidentDate}>{translateTime(incident.date)}</Text>
                       </View>
                     </View>
-                    <IncidentPicture image={incident.screenshot} style={styles.image} />
+                    <IncidentPicture image={incident.screenshot} type={'incidents'} style={styles.image} />
                   </View>
                 </Pressable>
                 <View style={styles.decisionWrapper}>
@@ -96,6 +101,10 @@ export default function Home() {
               </View>
             </View>)
           })}
+          {incidents?.length == 0 &&
+            <View style={{ justifyContent: 'center', flex: 1, }}>
+              <Text style={{ alignSelf: 'center', justifyContent: 'center' }}>No current active incidents</Text>
+            </View>}
           {incidents && showExplainer && <View style={styles.explainer}>
             <Text style={styles.explainerText}>Acknowledge means this is an actual
               incident to be resolved. Dismiss means this is not an actual incident.
@@ -119,7 +128,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flexGrow: 1,
     backgroundColor: 'white',
-    paddingTop: 20,
   },
   logout: {
     backgroundColor: '#FCAB41',
@@ -135,10 +143,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   container: {
+    flex: 1,
     paddingHorizontal: 20,
   },
   incidentScroll: {
-    minHeight: 500
+    minHeight: 500,
+    paddingBottom: 80,
   },
   image: {
     width: 130,

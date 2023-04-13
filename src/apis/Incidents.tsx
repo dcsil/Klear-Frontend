@@ -12,7 +12,6 @@ export const getAllIncidents = async (active: number): Promise<Incident[] | unde
     })
     return await response.json()
   } catch (e) {
-    console.log(e)
     Sentry.Native.captureException(e)
   }
 }
@@ -26,7 +25,6 @@ export const getIncident = async (incidentId: number): Promise<Incident | undefi
     })
     return await response.json()
   } catch (e) {
-    console.log(e)
     Sentry.Native.captureException(e)
   }
 }

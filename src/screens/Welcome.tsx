@@ -14,7 +14,9 @@ export default function Welcome() {
     AsyncStorage.getItem('oneSignal').then(res => {
       if (res == 'supported') {
         OneSignal.setNotificationOpenedHandler(() => {
-          nav.navigate("Home")
+          AsyncStorage.getItem('accessToken').then((token) => {
+            token ? nav.navigate("Home") : nav.navigate("Login")
+          })
         })
       }
     })
@@ -23,7 +25,7 @@ export default function Welcome() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Image source={require('../assets/klear_logo.png')} style={styles.logo} />
+        <Image source={require('../assets/klear_logo.png')} accessibilityLabel='Klear Logo' style={styles.logo} />
         <Text style={styles.slogan}>Take better care of your children.</Text>
         <View style={styles.buttons}>
           <Button name="GET STARTED" onClick={() => { nav.navigate('Signup') }}

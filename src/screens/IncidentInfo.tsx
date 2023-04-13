@@ -41,7 +41,7 @@ export default function IncidentInfo() {
           </Pressable>
         </View>
         <View>
-          <IncidentPicture image={response?.screenshot} style={styles.picture} />
+          <IncidentPicture image={response?.screenshot} type={'incidents'} style={styles.picture} />
         </View>
         <View>
           {response?.date &&

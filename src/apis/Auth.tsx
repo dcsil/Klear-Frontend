@@ -21,7 +21,6 @@ export const signup = async (firstName: string, lastName: string,
     AsyncStorage.setItem('accessToken', responeJson.accessToken)
     return "success"
   } catch (e) {
-    console.log(e)
     Sentry.Native.captureException(e)
     return "Unexpected Error"
   }
@@ -43,7 +42,6 @@ export const login = async (email: string, password: string) => {
     AsyncStorage.setItem('accessToken', responeJson.accessToken)
     return "success"
   } catch (e) {
-    console.log(e)
     Sentry.Native.captureException(e)
     return "Unexpected Error"
   }

@@ -20,7 +20,7 @@ export default function Login() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Image source={require('../assets/klear_logo.png')} style={styles.logo} />
+        <Image source={require('../assets/klear_logo.png')} accessibilityLabel='Klear Logo' style={styles.logo} />
         <Text style={styles.header}>Sign back in</Text>
         <Text style={styles.header2}>Choose from accounts saved in this device</Text>
         <View style={styles.accounts}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View, Image, Pressable, RefreshControl } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Pressable, RefreshControl } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
@@ -8,6 +8,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { getStudentHistory } from '../apis/Students'
 import { type Student, type StudentIncident } from '../store/StudentTypes'
 import { translateTime } from '../helpers/convertDates'
+import IncidentPicture from '../components/IncidentPicture'
 
 export default function StudentInfo() {
   const route = useRoute<any>()
@@ -38,7 +39,7 @@ export default function StudentInfo() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={styles.studentName}>{`${studentInfo.first_name} ${studentInfo.last_name}`}</Text>
-        <Image style={styles.studentImage} source={{ uri: studentInfo.imageUrl }} />
+        <IncidentPicture image={studentInfo.profile_pic} style={styles.studentImage} type={'students'} />
         <View style={[s.row, styles.categories]}>
           <Pressable onPress={() => { setSelectedCategory('Info') }}>
             <Text style={[styles.category, { fontWeight: checkSelected('Info') }]}>Info  </Text>
