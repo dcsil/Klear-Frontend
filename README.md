@@ -1,10 +1,14 @@
 ## Setup
 1. Login and Install dependencies via ```./script/bootstrap```
 2. Download the Expo app
-3. Open the expo app, sign in, then this app should show up in the UI. Click to open it
+3. run ```expo start``` to load the app
+3. Open expo on phone and should be able to find the app there
 
 ## env variables
 Message a team member to fill our .env file
+
+## Testing User
+- Use karen.smith@gmail.com with the password "pw" to login to a generic account. 
 
 ## Troubleshooting
 
