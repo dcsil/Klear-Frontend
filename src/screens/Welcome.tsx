@@ -14,7 +14,9 @@ export default function Welcome() {
     AsyncStorage.getItem('oneSignal').then(res => {
       if (res == 'supported') {
         OneSignal.setNotificationOpenedHandler(() => {
-          nav.navigate("Home")
+          AsyncStorage.getItem('accessToken').then((token) => {
+            token ? nav.navigate("Home") : nav.navigate("Login")
+          })
         })
       }
     })

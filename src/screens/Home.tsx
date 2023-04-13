@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Pressable, ScrollView, RefreshControl } from 'react-native'
+import { StyleSheet, Text, View, Pressable, ScrollView, RefreshControl, AppState } from 'react-native'
 import s from '../css/GlobalStyles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import NavigatorTab from '../components/Navigator'
@@ -36,6 +36,10 @@ export default function Home() {
     getAllIncidents(1).then(res => { setIncidents(res) })
     setRefreshing(false)
   }
+
+  useEffect(() => {
+    AppState.addEventListener('change', fetchLatestIncidents)
+  }, [])
 
   useFocusEffect(useCallback(() => {
     fetchLatestIncidents()
@@ -97,6 +101,10 @@ export default function Home() {
               </View>
             </View>)
           })}
+          {incidents?.length == 0 &&
+            <View style={{ justifyContent: 'center', flex: 1, }}>
+              <Text style={{ alignSelf: 'center', justifyContent: 'center' }}>No current active incidents</Text>
+            </View>}
           {incidents && showExplainer && <View style={styles.explainer}>
             <Text style={styles.explainerText}>Acknowledge means this is an actual
               incident to be resolved. Dismiss means this is not an actual incident.
